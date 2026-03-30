@@ -1,7 +1,7 @@
 import "../styles/autoCompletion.scss";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import GetAddress from "../API/getAddress";
+import getAddress from "../API/getAddress";
 
 AutoCompletion.propTypes = {
   handleManualInputChange: PropTypes.func.isRequired,
@@ -22,7 +22,7 @@ export default function AutoCompletion({
   };
 
   const handleInputChange = async (query) => {
-    const suggestions = await GetAddress(query);
+    const suggestions = await getAddress(query);
     setSuggestions(suggestions);
   };
 

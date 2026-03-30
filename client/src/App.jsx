@@ -1,12 +1,11 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import AddressForm from "./components/addressForm";
 import Map from "./components/map";
 import "mapbox-gl/dist/mapbox-gl.css";
-import './App.css'
+import './App.css';
 
 function App() {
-  // const [search, setSearch] = useState("")
-
+  
   const [address, setAddress] = useState({
     streetAndNumber: "",
     place: "",
@@ -16,7 +15,7 @@ function App() {
     latitude: "",
     longitude: "",
   });
-
+  console.log("Address state:", address);
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -33,19 +32,19 @@ function App() {
   return (
       <>
         <section id="center">
-          <div>
+          <div id="pickup">
             <h1>Play Pickup</h1>
             <p>
               Meet Up and Join With Others
             </p>
           </div>
-
           <div className="App">
             <AddressForm
               onSubmit={handleFormSubmit}
               address={address}
-              setAddress={address}
+              setAddress={setAddress}
             />
+
             {address.longitude && address.latitude && (
               <Map
                 longitude={address.longitude}

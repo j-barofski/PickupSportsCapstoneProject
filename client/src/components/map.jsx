@@ -1,18 +1,21 @@
 import "../styles/Map.scss";
 import PropTypes from "prop-types";
 import PointerIcon from "../assets/pointer.svg";
-import MapGL, { Marker } from "react-map-gl/mapbox";
+import Map, { Marker } from "react-map-gl";
 import { useState, useEffect } from "react";
 
 const TOKEN = import.meta.env.VITE_TOKEN;
 
-Map.propTypes = {
+MapFunc.propTypes = {
   longitude: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   updateCoordinates: PropTypes.func.isRequired,
 };
 
-function Map({ longitude, latitude, updateCoordinates }) {
+function MapFunc({ longitude, latitude, updateCoordinates }) {
+
+  console.log("TOKEN:", import.meta.env.VITE_TOKEN);
+
   const [viewport, setViewport] = useState({
     latitude,
     longitude,
@@ -30,6 +33,11 @@ function Map({ longitude, latitude, updateCoordinates }) {
       latitude,
       longitude,
     }));
+    
+    setMarker({
+      latitude,
+      longitude,
+    })
   }, [latitude, longitude]);
 
   const handleMarkerDrag = (event) => {
@@ -43,10 +51,11 @@ function Map({ longitude, latitude, updateCoordinates }) {
 
   return (
     <div className="map">
-      <MapGL
+      <Map
         {...viewport}
         mapboxAccessToken={TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v12"
+        style={{ width: "100%", height: "100%" }}
         onMove={(event) => {
           setViewport(event.viewState);
         }}
@@ -59,9 +68,9 @@ function Map({ longitude, latitude, updateCoordinates }) {
         >
           <img className="marker" src={PointerIcon} />
         </Marker>
-      </MapGL>
+      </Map>
     </div>
   );
 }
 
-export default Map;
+export default MapFunc;
