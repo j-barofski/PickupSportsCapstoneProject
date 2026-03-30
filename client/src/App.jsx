@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import API from "./api";
 import AddressForm from "./components/addressForm";
 import Map from "./components/map";
 import "mapbox-gl/dist/mapbox-gl.css";
 import './App.css';
 
 function App() {
-  
+  useEffect(() => {
+    const testAPI = async () => {
+      const res = await API.get("/health");
+      console.log(res.data);
+    };
+
+    testAPI();
+  }, []);
+
   const [address, setAddress] = useState({
     streetAndNumber: "",
     place: "",

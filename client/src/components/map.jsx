@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PointerIcon from "../assets/pointer.svg";
 import Map, { Marker } from "react-map-gl";
 import { useState, useEffect } from "react";
+import API from "../api";
 
 const TOKEN = import.meta.env.VITE_TOKEN;
 
@@ -40,13 +41,22 @@ function MapFunc({ longitude, latitude, updateCoordinates }) {
     })
   }, [latitude, longitude]);
 
-  const handleMarkerDrag = (event) => {
+  const handleMarkerDrag = async (event) => {
     const latitude = event.lngLat.lat;
     const longitude = event.lngLat.lng;
 
     setMarker({ latitude, longitude });
 
     updateCoordinates(latitude, longitude);
+
+    try {
+      await API.post("/locations", {
+        latitude,
+        longitude,
+      });
+    } catch (err) {
+      console.error("Error saving location:", err);
+    }
   };
 
   return (
