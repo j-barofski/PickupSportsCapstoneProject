@@ -1,4 +1,5 @@
 import "../styles/editEvent.scss";
+import eventAPI from "../API/eventAPI";
 
 function EditEvent() {
     const [event, setEditEvent] = useState({
@@ -12,7 +13,7 @@ function EditEvent() {
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchEvent = async () => {
-        const response = await API.get("");
+        const response = await eventAPI.getEvent(formData);
         setEditEvent(response.data);
     };
 
@@ -46,7 +47,7 @@ function EditEvent() {
         formData.append("status", event.status);
 
         try {
-            const response = await API.post("", formData);
+            const response = await eventAPI.updateEvent(formData);
             console.log(response.data);
             console.log("Event created");
             setIsLoading(false);

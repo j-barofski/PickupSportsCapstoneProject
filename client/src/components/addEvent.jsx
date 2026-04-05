@@ -1,4 +1,11 @@
 import "../styles/addEvent.scss";
+import eventAPI from "../API/eventAPI";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+
+Events.propTypes = {
+    address: PropTypes.object.isRequired,
+};
 
 function AddEvent() {
     const [event, setCreateEvent] = useState({
@@ -10,6 +17,8 @@ function AddEvent() {
     });
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleCreateEventChange = (e) => {
         setCreateEvent({
@@ -38,12 +47,15 @@ function AddEvent() {
         const formData = new FormData();
         formData.append("title", event.title);
         formData.append("location", event.location);
+        formData.append("latitude", address.latitude);
+        formData.append("longitude", address.longitude);
         formData.append("description", event.description);
         formData.append("attendees", event.attendees);
         formData.append("status", event.status);
 
         try {
-            const response = await API.post("", formData);
+            const response = await eventAPI.createEvent(formData);
+            navigate("/");
             console.log(response.data);
             console.log("Event created");
             setIsLoading(false);
