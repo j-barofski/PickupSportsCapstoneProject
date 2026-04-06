@@ -29,7 +29,7 @@ router.put("/:id", async (req, res) => {
     try {
         const event = await db.models.Event.findByPk(req.params.id);
         if (!event) {
-            return res.json({ error: "Event unavailable" })
+            return res.status(404).json({ error: "Event unavailable" })
         }
         await event.update(req.body);
         res.json(event);

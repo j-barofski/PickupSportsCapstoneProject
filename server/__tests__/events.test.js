@@ -1,9 +1,9 @@
 const request = require('supertest');
 const app = require('../server');
 
-const db = require("../routes")
+const db = require("../models")
 
-DESCRIBE("Events API", () => {
+describe("Events API", () => {
     // GET
     test("GET /events should return all events", async () => {
         const response = await request(app).get("/events");
@@ -37,7 +37,7 @@ DESCRIBE("Events API", () => {
     test("POST /events should return 500 on database error", async () => {
         const response = await request(app)
             .post("/events")
-            .send({ name: "Pickup" });
+            .send({ title: "Pickup" });
 
         expect(response.status).toBe(500);
         expect(response.body).toHaveProperty("error");
