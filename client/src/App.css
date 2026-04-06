@@ -20,13 +20,20 @@ body {
   }
 }
 
-#center input {
+#center .form input {
   padding: 10px;
   width: 250px;
   margin-top: 10px;
   border-radius: 20px;
 }
 
+#center .form {
+  text-align: left;
+}
+
+#pickup {
+  text-align: center;
+}
 
 .searchMap {
   display: flex;

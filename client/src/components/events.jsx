@@ -62,7 +62,7 @@ export default function Events({ address }) {
                                                 <th scope="col" className="border-0">Location</th>
                                                 <th scope="col" className="border-0">Attendees</th>
                                                 <th scope="col" className="border-0">Date</th>
-                                                <th scope="col" className="border-0">Status</th>
+                                                <th scope="col" className="border-0">Time</th>
                                                 <th scope="col" className="border-0 rounded-end">Action</th>
                                             </tr>
                                         </thead>
@@ -76,9 +76,7 @@ export default function Events({ address }) {
                                                     <td>{e.location}</td>
                                                     <td>{e.attendees}</td>
                                                     <td>{new Date(e.date).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</td>
-                                                    <td>
-                                                        <span className="badge bg-dark bg-opacity-10 text-dark">{e.status}</span>
-                                                    </td>
+                                                    <td>{new Date(e.date).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}</td>
                                                     <td>
                                                         <div className="d-flex gap-2">
                                                             <Link to={`/events/edit/${e.id}`} className="btn btn-primary btn-round mb-0" title="Edit">
