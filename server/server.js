@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 
 const app = express();
+const port = 3000;
 const router = express.Router();
 app.use(express.json());
 
@@ -48,3 +49,12 @@ db.sync()
   
 //     res.status(200).send(data);
 //   });
+
+// Only start server when running directly, not when testing
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}
+
+module.exports = app;

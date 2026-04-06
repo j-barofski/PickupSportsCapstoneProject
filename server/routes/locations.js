@@ -39,7 +39,7 @@ router.put("/:id", async (req, res) => {
     try {
         const location = await db.models.Location.findByPk(req.params.id);
         if (!location) {
-            return res.json({ error: "Location unavailable" })
+            return res.status(404).json({ error: "Location unavailable" })
         }
         await location.update(req.body);
         res.json(location);
