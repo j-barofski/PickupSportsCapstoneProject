@@ -1,15 +1,36 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import AddEvent from '../addEvent';
+
 
 describe('AddEvent', () => {
   test('renders without crashing', () => {
-    render(<AddEvent name="Pasta" time={30} />);
+    render(<AddEvent title="Pickup" location={"NJ"} description="bball" attendees="1" time="2026-04-06"/>);
   });
 
-  test('displays recipe information', () => {
-    render(<RecipeCard name="Pasta" time={30} />);
+  test('displays event information', () => {
+    render(<AddEvent title="Pickup" location={"NJ"} description="bball" attendees="1" time="2026-04-06"/>);
     
-    expect(screen.getByText('Pasta')).toBeInTheDocument();
-    expect(screen.getByText('30 minutes')).toBeInTheDocument();
+    expect(screen.getByText('Pickup')).toBeInTheDocument();
+    expect(screen.getByText('NJ')).toBeInTheDocument();
+    expect(screen.getByText('bball')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2026-04-06')).toBeInTheDocument();
   });
+
+  test('increments attendees count when clicked', () => {
+    render(<attendees initialCount={1} />);
+    
+    fireEvent.click(screen.getByText('+'));
+    
+    expect(screen.getByText('2')).toBeInTheDocument();
+  });
+
+  test('decrements attendees count when clicked', () => {
+    render(<attendees initialCount={1} />);
+    
+    fireEvent.click(screen.getByText('-'));
+    
+    expect(screen.getByText('0')).toBeInTheDocument();
+  });
+
 });

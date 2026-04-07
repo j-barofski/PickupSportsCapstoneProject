@@ -10,4 +10,10 @@ Run frontend:
 Run backend:
     cd server &&
     npm install &&
-    npm start &&
+    npm start 
+
+APIs:
+    Events:
+        Create, update, and join events
+    getAddress: 
+        Get addresses from mapbox to display and find location to create/join events
