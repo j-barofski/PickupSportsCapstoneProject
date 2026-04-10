@@ -25,10 +25,12 @@ body {
   width: 250px;
   margin-top: 10px;
   border-radius: 20px;
+  text-align: center;
 }
 
 #center .form {
-  text-align: left;
+  /* text-align: left; */
+  text-align: center;
 }
 
 #pickup {
