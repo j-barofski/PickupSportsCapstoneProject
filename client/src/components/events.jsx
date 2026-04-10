@@ -42,7 +42,7 @@ export default function Events({ address }) {
                             <div className="card-header bg-transparent border-bottom p-3">
                                 <div className="d-sm-flex justify-content-between align-items-center">
                                     <h5 className="mb-2 mb-sm-0">
-                                        Events Near You{" "}
+                                        Events Near You: {" "}
                                         <span className="badge bg-primary bg-opacity-10 text-primary">
                                             {events?.length}
                                         </span>
@@ -56,16 +56,6 @@ export default function Events({ address }) {
                             <div className="card-body">
                                 <div className="table-responsive border-0">
                                     <table className="table align-middle p-4 mb-0 table-hover table-shrink">
-                                        <thead className="table-dark">
-                                            <tr>
-                                                <th scope="col" className="border-0 rounded-start">Title</th>
-                                                <th scope="col" className="border-0">Location</th>
-                                                <th scope="col" className="border-0">Attendees</th>
-                                                <th scope="col" className="border-0">Date</th>
-                                                <th scope="col" className="border-0">Time</th>
-                                                <th scope="col" className="border-0 rounded-end">Action</th>
-                                            </tr>
-                                        </thead>
                                         <tbody className="border-top-0">
                                             {events?.map((e) => (
                                                 <tr key={e.id}>

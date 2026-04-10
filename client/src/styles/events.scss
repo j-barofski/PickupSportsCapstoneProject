@@ -1,12 +1,6 @@
 .table {
     color: white;
   
-    thead.table-dark th {
-      background: rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-  
     tbody tr {
       border-color: rgba(255, 255, 255, 0.08);
   
@@ -26,8 +20,6 @@
     border-color: rgba(255, 255, 255, 0.15) !important;
   
     .card-header {
-      border-bottom-color: rgba(255, 255, 255, 0.15) !important;
-  
       h5 {
         color: white;
       }
