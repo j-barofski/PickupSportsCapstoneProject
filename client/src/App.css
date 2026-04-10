@@ -29,7 +29,6 @@ body {
 }
 
 #center .form {
-  /* text-align: left; */
   text-align: center;
 }
 
@@ -39,6 +38,7 @@ body {
 
 .searchMap {
   display: flex;
+  flex-direction: column;
   width: 1000px;
   justify-content: center;
 
