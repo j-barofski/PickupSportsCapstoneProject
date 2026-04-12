@@ -33,6 +33,20 @@ export default function Events({ address }) {
         }
     }
 
+    const handleJoinEvent = async (id) => {
+        try {
+            const response = await eventAPI.joinEvent(id);
+            setEvents(events.map((e) => {
+                if (e.id === id) {
+                    return response.data;       
+                }
+                return e
+            }));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="card border bg-transparent rounded-3">
             <div className="card-header bg-transparent border-bottom p-3">
@@ -50,36 +64,36 @@ export default function Events({ address }) {
             </div>
 
             <div className="card-body">
-                <div className="table-responsive border-0">
-                    <table className="table align-middle p-4 mb-0 table-hover table-shrink">
-                        <tbody className="border-top-0">
-                            {events?.map((e) => (
-                                <tr key={e.id}>
-                                    <td>
-                                        <h6 className="mb-0">{e.title}</h6>
-                                        <small className="text-muted">{e.description?.slice(0, 60)}...</small>
-                                    </td>
-                                    <td>{e.location}</td>
-                                    <td>{e.attendees}</td>
-                                    <td>{new Date(e.time).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</td>
-                                    <td>{new Date(e.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}</td>
-                                    <td>
-                                        <div className="d-flex gap-2">
-                                            <Link to={`/events/edit/${e.id}`} className="btn btn-primary btn-round mb-0" title="Edit">
-                                                <i className="bi bi-pencil-square" />
-                                            </Link>
-                                            <button onClick={() => handleDeleteEvent(e.id)} className="btn btn-danger btn-round mb-0" title="Delete">
-                                                <i className="bi bi-trash" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                {events?.length === 0 && (
+                    <p className="text-center text-muted py-3">No events near you.</p>
+                )}
+                {events?.map((e) => (
+                    <div key={e.id} className="event-item">
+                        <div className="event-item-header">
+                            <h6 className="event-title">{e.title}</h6>
+                            <div className="event-actions">
+                                <button onClick={() => handleJoinEvent(e.id)} className="btn btn-join" title="Join Event">
+                                    <i className="fas fa-user-plus"></i> Join 
+                                </button>
+                                <button onClick={() => navigate(`/events/edit/${e.id}`)} className="btn btn-edit" title="Edit Event">
+                                    <i className="fas fa-edit"></i> Edit
+                                </button>
+                                <button onClick={() => handleDeleteEvent(e.id)} className="btn btn-delete" title="Delete Event">
+                                    <i className="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <p className="event-description">{e.description?.slice(0, 100)}...</p>
+                        <div className="event-meta">
+                            <span><i className = "fas fa-map-marker-alt"></i> {e.location} </span>
+                            <span><i className = "fas fa-users"></i> Attendees: {e.attendees} </span>
+                            <span><i className = "fas fa-calendar"></i> {new Date(e.time).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })} </span>
+                            <span><i className = "fas fa-clock"></i> {new Date(e.time).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })} </span>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
-}
+};
 

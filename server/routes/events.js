@@ -41,6 +41,17 @@ router.get("/", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 })
+router.get("/:id", async (req, res) => {
+    try {
+        const event = await db.models.Event.findByPk(req.params.id);
+        if (!event) {
+            return res.status(404).json({ error: "Event unavailable" });
+        }
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
 
 // Update
 router.put("/:id", async (req, res) => {
@@ -74,6 +85,20 @@ router.delete("/:id", async (req, res) => {
         }
         await event.destroy();
         res.json( { message: "Removed event" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
+// Join Event
+router.put("/:id/join", async (req, res) => {
+    try {
+        const event = await db.models.Event.findByPk(req.params.id);
+        if (!event) {
+            return res.status(404).json({ error: "Event unavailable" });
+        }
+        await event.increment("attendees");
+        res.json(await event.reload());
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -5,9 +5,21 @@ console.log("Models loaded:", Object.keys(db.models));
 
 const app = express();
 
-app.use(cors());
+const corsMethods = {
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsMethods));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // routes
 const eventsRoutes = require("./routes/events");

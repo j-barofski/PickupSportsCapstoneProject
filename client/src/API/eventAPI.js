@@ -14,7 +14,10 @@ const eventAPI = {
         API.put(`/events/${id}/`, formData),
 
     deleteEvent: (id) => 
-        API.delete(`/events/${id}/`)
+        API.delete(`/events/${id}/`),
+
+    joinEvent: (id) =>
+        API.put(`/events/${id}/join`)
 };
 
 export default eventAPI;

@@ -26,7 +26,15 @@ export default function EditEvent({ address }) {
         const fetchEvent = async () => {
             try {
                 const response = await eventAPI.getEvent(id);
+                const data = response.data;
                 setEditEvent(response.data);
+                if (data.time) {
+                    formatTime = data.time.slice(0, 16);
+                }
+                setEditEvent({
+                    ...data,
+                    time: formatTime
+                })
             } catch (error) {
                 console.log(error);
             }
@@ -85,7 +93,7 @@ export default function EditEvent({ address }) {
         <section className="pt-5 pb-5">
             <div className="event-header">
                 <div className="d-flex align-items-center justify-content-between">
-                    <h1 className="text-white mb-0">Create Event</h1>
+                    <h1 className="text-white mb-0">Edit Event</h1>
                     <button onClick={() => navigate("/")} className="btn btn-outline-light">
                         <i className="fas fa-arrow-left"></i> Back to Events
                     </button>
@@ -135,11 +143,11 @@ export default function EditEvent({ address }) {
     
                 {isLoading ? (
                     <button className="btn btn-lg btn-secondary w-100 mt-2" disabled>
-                        Creating Event... <i className="fas fa-spinner fa-spin"></i>
+                        Editing Event... <i className="fas fa-spinner fa-spin"></i>
                     </button>
                 ) : (
                     <button className="btn btn-lg btn-success w-100 mt-2" type="submit">
-                        Create Event <i className="fas fa-check-circle"></i>
+                        Edit Event <i className="fas fa-check-circle"></i>
                     </button>
                 )}
             </form>
