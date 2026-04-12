@@ -39,7 +39,7 @@ export default function AddEvent({ address }) {
         setIsLoading(true);
         e.preventDefault();
 
-        if (!event.title || !event.location || !event.description) {
+        if (!event.title || !event.location || !event.description || !event.time) {
             alert("All fields are required");
             console.log("All fields are required");
             setIsLoading(false);

@@ -1,11 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
+const { Op } = require("sequelize");
 
 // Create
 router.post("/", async (req, res) => {
     try {
-        const event = await db.models.Event.create(req.body);
+        const { title, location, latitude, longitude, description, attendees, time } = req.body;
+        const event = await db.models.Event.create({
+            title, 
+            location,
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            description,
+            attendees: parseInt(attendees),
+            time
+        });
         res.json(event);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -15,9 +25,17 @@ router.post("/", async (req, res) => {
 // Read
 router.get("/", async (req, res) => {
     try {
-        const events = await db.models.Event.findAll(
-            { include: db.models.Location }
-        );
+        const { latitude, longitude } = req.query;
+        const lat = parseFloat(latitude);
+        const lng = parseFloat(longitude);
+        const range = 1;
+
+        const events = await db.models.Event.findAll({
+            where: {
+                latitude: { [Op.between]: [lat - range, lat + range] },
+                longitude: { [Op.between]: [lng - range, lng + range] }
+            }
+        });
         res.json(events);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -31,7 +49,16 @@ router.put("/:id", async (req, res) => {
         if (!event) {
             return res.status(404).json({ error: "Event unavailable" })
         }
-        await event.update(req.body);
+        const { title, location, latitude, longitude, description, attendees, time } = req.body;
+        await event.update({
+            title,
+            location,
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            description,
+            attendees: parseInt(attendees),
+            time
+        });
         res.json(event);
     } catch (error) {
         res.status(500).json({ error: error.message });

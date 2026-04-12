@@ -1,10 +1,14 @@
 const express = require('express');
 const http = require('http');
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
 const router = express.Router();
+
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
 
@@ -15,15 +19,10 @@ const locationsRoutes = require("./routes/locations");
 app.use("/api/v1/events", eventsRoutes);
 app.use("/api/v1/locations", locationsRoutes);
 
-router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Methods', 'GET');
-  next();
-});
-
+// health
 router.get('/health', (req, res) => {
   res.status(200).send('Ok');
 });
-
 
 app.use('/api/v1', router);
 
@@ -31,24 +30,14 @@ const server = http.createServer(app);
 server.listen(3000);
 
 // sync to database
-db.sync()
+db.sync({ alter: true })
   .then(() => {
     console.log("Syncing to database");
+    console.log(`Running server at http://localhost:${port}`);
   })
   .catch(error => {
     console.error("Error syncing to database", error);
-  })
-
-
-// outer.get('/health', (req, res) => {
-//     const data = {
-//       uptime: process.uptime(),
-//       message: 'Ok',
-//       date: new Date()
-//     }
-  
-//     res.status(200).send(data);
-//   });
+  });
 
 // Only start server when running directly, not when testing
 if (require.main === module) {

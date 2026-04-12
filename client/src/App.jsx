@@ -10,14 +10,13 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import './App.css';
 
 function App() {
-  useEffect(() => {
-    const testAPI = async () => {
-      const res = await API.get("/health");
-      console.log(res.data);
-    };
-
-    testAPI();
-  }, []);
+  // useEffect(() => {
+  //   const testAPI = async () => {
+  //     const res = await API.get("/health");
+  //     console.log(res.data);
+  //   };
+  //   testAPI();
+  // }, []);
 
   const [address, setAddress] = useState({
     streetAndNumber: "",
