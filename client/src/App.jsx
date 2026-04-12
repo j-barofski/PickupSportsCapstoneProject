@@ -61,14 +61,14 @@ function App() {
                 />
 
                 {address.longitude && address.latitude && (
-                  <>
-                    <Map
-                      longitude={address.longitude}
-                      latitude={address.latitude}
-                      updateCoordinates={updateCoordinates}
-                    />
-                    <Events address={address}/>
-                  </>
+                  <div className="searchMap">
+                      <Map
+                        longitude={address.longitude}
+                        latitude={address.latitude}
+                        updateCoordinates={updateCoordinates}
+                      />
+                      <Events address={address}/>
+                  </div>
                 )}
               </div>
             </section>

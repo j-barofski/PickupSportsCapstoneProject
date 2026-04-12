@@ -117,7 +117,7 @@ export default function EditEvent({ address }) {
     
                             <div className="mb-3 form-grid-full">
                                 <label className="form-label">Description</label>
-                                <textarea onChange={handleEditEventChange} name="description" value={event.description} className="form-control" rows="4" placeholder="What's this event about?"></textarea>
+                                <textarea onChange={handleEditEventChange} name="description" value={event.description} className="form-control" rows="2" placeholder="What's this event about?"></textarea>
                             </div>
     
                             <div className="mb-3">

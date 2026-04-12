@@ -103,7 +103,7 @@ export default function AddEvent({ address }) {
     
                             <div className="mb-3 form-grid-full">
                                 <label className="form-label">Description</label>
-                                <textarea onChange={handleCreateEventChange} name="description" value={event.description} className="form-control" rows="4" placeholder="What's this event about?"></textarea>
+                                <textarea onChange={handleCreateEventChange} name="description" value={event.description} className="form-control" rows="2" placeholder="What's this event about?"></textarea>
                             </div>
     
                             <div className="mb-3">
