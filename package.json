@@ -4,6 +4,7 @@
   "scripts": {
     "start": "node server/server.js",
     "test": "vitest",
+    "build": "cd client && npm run build",
     "postinstall": "cd server && npm install && cd ../client && npm install"
   },
   "dependencies": {
