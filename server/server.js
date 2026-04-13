@@ -21,7 +21,7 @@ app.use("/api/v1/events", eventsRoutes);
 app.use("/api/v1/locations", locationsRoutes);
 
 // health
-router.get('/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.status(200).send('Ok');
 });
 
@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 // sync to database
-db.sync({ alter: true })
+db.sync()
   .then(() => {
     console.log("Syncing to database");
 
