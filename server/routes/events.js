@@ -26,6 +26,11 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const { latitude, longitude } = req.query;
+
+        if (isNaN(parseFloat(latitude)) || isNaN(parseFloat(longitude))) {
+            return res.json([]);
+        }
+
         const lat = parseFloat(latitude);
         const lng = parseFloat(longitude);
         const range = 1;
@@ -64,10 +69,10 @@ router.put("/:id", async (req, res) => {
         await event.update({
             title,
             location,
-            latitude: parseFloat(latitude),
-            longitude: parseFloat(longitude),
+            latitude: latitude ? parseFloat(latitude) : null,
+            longitude: longitude ? parseFloat(longitude) : null,
             description,
-            attendees: parseInt(attendees),
+            attendees: attendees ? parseInt(attendees) : 0,
             time
         });
         res.json(event);

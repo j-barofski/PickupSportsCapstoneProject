@@ -13,6 +13,7 @@ export default function Events({ address }) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!address?.latitude || !address?.longitude) return;
         const fetchEvents = async () => {
             try {
                 const response = await eventAPI.getEvents(address.latitude, address.longitude);

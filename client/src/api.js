@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:3001/api/v1",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: "https://play-pickup-capstone-project.onrender.com/api/v1"
 });
 
 export default API;
