@@ -1,9 +1,9 @@
+require('dotenv').config();
 const express = require('express');
-const http = require('http');
+// const http = require('http');
 const cors = require("cors");
 
 const app = express();
-const port = process.env.PORTII3000;
 const router = express.Router();
 
 app.use(cors());
@@ -26,23 +26,29 @@ router.get('/health', (req, res) => {
 
 app.use('/api/v1', router);
 
-const server = http.createServer(app);
-server.listen(3000);
+// const server = http.createServer(app);
+// server.listen(3000);
 
 // sync to database
 db.sync({ alter: true })
   .then(() => {
     console.log("Syncing to database");
-    console.log(`Running server at http://localhost:${port}`);
+    console.log(`Running server at http://localhost:${PORT}`);
   })
   .catch(error => {
     console.error("Error syncing to database", error);
   });
 
+const PORT = process.env.PORT || 3000;
+
+// app.listen(PORT, () => {
+//   console.log(`Server running at http://localhost:${PORT}`);
+// });
+
 // Only start server when running directly, not when testing
 if (require.main === module) {
-  app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
   });
 }
 
