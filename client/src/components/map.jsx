@@ -1,4 +1,4 @@
-import "../styles/Map.scss";
+import "../styles/map.scss";
 import PropTypes from "prop-types";
 import PointerIcon from "../assets/pointer.svg";
 import Map, { Marker } from "react-map-gl";
