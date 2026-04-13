@@ -50,11 +50,14 @@ app.get("/api/v1/health", (req, res) => {
 
 
 // start server AFTER DB loads
-db.sync({ alter: true }).then(() => {
-  console.log("Synced to database");
-  app.listen(3001, () => {
-    console.log("Server running on http://localhost:3001");
+db.sync()
+  .then(() => {
+    console.log("Syncing to database");
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch(error => {
+    console.error("Error syncing to database", error);
   });
-}).catch(err => {
-  console.log("Error trying to sync: ", err);
-});
