@@ -7,11 +7,13 @@ Events are able to be edited and deleted as well.
 Run frontend:
     cd client &&
     npm install &&
+    npm install axios &&
     npm run dev 
 
 Run backend:
     cd server &&
-    node index.js
+    npm install &&
+    npm start
 
 APIs:
     Events:
