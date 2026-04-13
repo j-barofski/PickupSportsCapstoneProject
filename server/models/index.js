@@ -3,10 +3,20 @@ const path = require("path");
 const { Sequelize, DataTypes } = require("sequelize");
 require("dotenv").config();
 
-const db = new Sequelize({ 
-    dialect: "sqlite", 
-    storage: path.join(__dirname, "..", "app.db"), 
-    logging: false
+// const db = new Sequelize({ 
+//     dialect: "sqlite", 
+//     storage: path.join(__dirname, "..", "app.db"), 
+//     logging: false
+// })
+const db = new Sequelize(process.env.DATABASE_URL, { 
+    dialect: "postgres",
+    logging: false,
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
 })
 
 fs.readdirSync(__dirname).filter(
